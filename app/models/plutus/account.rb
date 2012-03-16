@@ -48,11 +48,8 @@ module Plutus
     #
     # @return [BigDecimal] The decimal value balance of all accounts
     def self.trial_balance
-      unless self.new.class == Account
-        raise(NoMethodError, "undefined method 'trial_balance'")
-      else
-        Asset.balance - (Liability.balance + Equity.balance + Revenue.balance - Expense.balance)
-      end
+      raise(NoMethodError, "undefined method 'trial_balance'") unless self.new.class == Account
+      Asset.balance - (Liability.balance + Equity.balance + Revenue.balance - Expense.balance)
     end
 
   end
