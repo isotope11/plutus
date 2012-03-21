@@ -32,7 +32,7 @@ module Plutus
   # @see http://en.wikipedia.org/wiki/Debits_and_credits Debits, Credits, and Contra Accounts
   #
   # @author Michael Bulat
-  class Account < ActiveRecord::Base
+  class Account < Plutus::PersistenceManager.persistence_class
 
     validates_presence_of :type, :name
 

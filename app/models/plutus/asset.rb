@@ -17,11 +17,7 @@ module Plutus
     #
     # @return [BigDecimal] The decimal value credit balance
     def credits_balance
-      credits_balance = BigDecimal.new('0')
-      credit_transactions.each do |credit_transaction|
-        credits_balance += credit_transaction.amount
-      end
-      return credits_balance
+      credit_transactions.inject(BigDecimal("0")) {|credit_balance, sum| sum + credit_balance.amount }
     end
 
     # The debit balance for the account.
