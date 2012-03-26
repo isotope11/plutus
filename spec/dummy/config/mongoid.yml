@@ -1,0 +1,8 @@
+development:
+  host: localhost
+  database: plutus_development
+
+test:
+  host: localhost
+  database: plutus_test
+

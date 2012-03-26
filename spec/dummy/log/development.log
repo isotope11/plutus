@@ -1,0 +1,108 @@
+
+
+Started GET "/" for 127.0.0.1 at 2012-03-22 12:48:44 -0500
+
+ActionController::RoutingError (No route matches [GET] "/"):
+  actionpack (3.2.2) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.2) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.2) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.2) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.2) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.2) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  actionpack (3.2.2) lib/action_dispatch/middleware/static.rb:61:in `call'
+  railties (3.2.2) lib/rails/engine.rb:479:in `call'
+  railties (3.2.2) lib/rails/application.rb:220:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.2) lib/rails/rack/log_tailer.rb:14:in `call'
+  rack (1.4.1) lib/rack/handler/webrick.rb:59:in `service'
+  /home/ben/.rvm/rubies/ruby-1.9.3-p125/lib/ruby/1.9.1/webrick/httpserver.rb:138:in `service'
+  /home/ben/.rvm/rubies/ruby-1.9.3-p125/lib/ruby/1.9.1/webrick/httpserver.rb:94:in `run'
+  /home/ben/.rvm/rubies/ruby-1.9.3-p125/lib/ruby/1.9.1/webrick/server.rb:191:in `block in start_thread'
+
+
+  Rendered /home/ben/.rvm/gems/ruby-1.9.3-p125@plutus/gems/actionpack-3.2.2/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (1.8ms)
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (133.7ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (97.2ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreatePlutusAccounts (20120322180245)
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "plutus_accounts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "type" varchar(255), "contra" boolean, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120322180245')
+  [1m[36m (178.3ms)[0m  [1mcommit transaction[0m
+Migrating to CreatePlutusTransactions (20120322180439)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "plutus_transactions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "description" varchar(255), "credit_account_id" integer, "debit_account_id" integer, "amount" decimal, "commercial_document_id" integer, "commercial_document_type" varchar(255), "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120322180439')
+  [1m[36m (160.8ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  select sqlite_version(*)
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("plutus_accounts")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("plutus_transactions")[0m
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (0ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+MONGODB (72ms) plutus_development['system.namespaces'].find({})
+MONGODB (0ms) plutus_development['plutus_accounts'].insert([{"_id"=>BSON::ObjectId('4f707dfc4d52aa1361000001'), "_type"=>"Plutus::Asset", "name"=>"asset account", "contra"=>false}])
+MONGODB (0ms) plutus_development['plutus_accounts'].insert([{"_id"=>BSON::ObjectId('4f707e184d52aa1361000002'), "_type"=>"Plutus::Asset", "name"=>"contra account", "contra"=>true}])
+MONGODB (0ms) plutus_development['plutus_accounts'].find({:_type=>{"$in"=>["Plutus::Asset"]}})
+MONGODB (0ms) plutus_development['system.namespaces'].find({})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"debit_account_id"=>BSON::ObjectId('4f6cd4b84d52aa2f44000007')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"credit_account_id"=>BSON::ObjectId('4f6cd4b84d52aa2f44000007')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"debit_account_id"=>BSON::ObjectId('4f6cd5164d52aa2f44000009')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"credit_account_id"=>BSON::ObjectId('4f6cd5164d52aa2f44000009')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"debit_account_id"=>BSON::ObjectId('4f6cd5da4d52aa2f4400000b')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"credit_account_id"=>BSON::ObjectId('4f6cd5da4d52aa2f4400000b')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"debit_account_id"=>BSON::ObjectId('4f707dfc4d52aa1361000001')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"credit_account_id"=>BSON::ObjectId('4f707dfc4d52aa1361000001')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"credit_account_id"=>BSON::ObjectId('4f707e184d52aa1361000002')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"debit_account_id"=>BSON::ObjectId('4f707e184d52aa1361000002')})
+MONGODB (0ms) plutus_development['plutus_transactions'].insert([{"_id"=>BSON::ObjectId('4f707e5c4d52aa1361000003'), "_type"=>"Plutus::Transaction", "description"=>"test transaction", "amount"=>"1000", "credit_account_id"=>BSON::ObjectId('4f707e184d52aa1361000002'), "debit_account_id"=>BSON::ObjectId('4f707dfc4d52aa1361000001')}])
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"credit_account_id"=>BSON::ObjectId('4f707e184d52aa1361000002')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"debit_account_id"=>BSON::ObjectId('4f707e184d52aa1361000002')})
+MONGODB (0ms) plutus_development['plutus_accounts'].find({:_type=>{"$in"=>["Plutus::Asset"]}})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"debit_account_id"=>BSON::ObjectId('4f6cd4b84d52aa2f44000007')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"credit_account_id"=>BSON::ObjectId('4f6cd4b84d52aa2f44000007')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"debit_account_id"=>BSON::ObjectId('4f6cd5164d52aa2f44000009')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"credit_account_id"=>BSON::ObjectId('4f6cd5164d52aa2f44000009')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"debit_account_id"=>BSON::ObjectId('4f6cd5da4d52aa2f4400000b')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"credit_account_id"=>BSON::ObjectId('4f6cd5da4d52aa2f4400000b')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"debit_account_id"=>BSON::ObjectId('4f707dfc4d52aa1361000001')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"credit_account_id"=>BSON::ObjectId('4f707dfc4d52aa1361000001')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"credit_account_id"=>BSON::ObjectId('4f707e184d52aa1361000002')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"debit_account_id"=>BSON::ObjectId('4f707e184d52aa1361000002')})
+MONGODB (0ms) plutus_development['plutus_accounts'].find({:_type=>{"$in"=>["Plutus::Asset"]}})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"debit_account_id"=>BSON::ObjectId('4f6cd4b84d52aa2f44000007')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"credit_account_id"=>BSON::ObjectId('4f6cd4b84d52aa2f44000007')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"debit_account_id"=>BSON::ObjectId('4f6cd5164d52aa2f44000009')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"credit_account_id"=>BSON::ObjectId('4f6cd5164d52aa2f44000009')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"debit_account_id"=>BSON::ObjectId('4f6cd5da4d52aa2f4400000b')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"credit_account_id"=>BSON::ObjectId('4f6cd5da4d52aa2f4400000b')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"debit_account_id"=>BSON::ObjectId('4f707dfc4d52aa1361000001')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"credit_account_id"=>BSON::ObjectId('4f707dfc4d52aa1361000001')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"credit_account_id"=>BSON::ObjectId('4f707e184d52aa1361000002')})
+MONGODB (0ms) plutus_development['plutus_transactions'].find({"debit_account_id"=>BSON::ObjectId('4f707e184d52aa1361000002')})
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (0ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+  [1m[36m (1.6ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (160.8ms)[0m  CREATE TABLE "plutus_accounts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "type" varchar(255), "contra" boolean, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (79.2ms)[0m  [1mCREATE TABLE "plutus_transactions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "description" varchar(255), "credit_account_id" integer, "debit_account_id" integer, "amount" decimal, "commercial_document_id" integer, "commercial_document_type" varchar(255), "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (120.7ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (112.0ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.0ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (99.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20120322180439')
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+MONGODB (0ms) plutus_development['system.namespaces'].find({})
+MONGODB (0ms) plutus_development['system.namespaces'].find({})
+MONGODB (0ms) plutus_development['system.namespaces'].find({})
+MONGODB (0ms) plutus_development['system.namespaces'].find({})
+MONGODB (0ms) plutus_development['system.namespaces'].find({})
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (0ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+MONGODB (0ms) plutus_development['system.namespaces'].find({})
+MONGODB (0ms) plutus_development['plutus_accounts'].insert([{"_id"=>BSON::ObjectId('4f7084524d52aa18a6000001'), "_type"=>"Plutus::Revenue", "name"=>"revenue", "contra"=>false}])
+MONGODB (0ms) plutus_development['plutus_accounts'].insert([{"_id"=>BSON::ObjectId('4f7084524d52aa18a6000002'), "_type"=>"Plutus::Revenue", "name"=>"contra revenue", "contra"=>true}])
