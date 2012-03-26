@@ -40,6 +40,7 @@ module Plutus
       liability = Factory(:liability)
       contra_liability = Factory(:liability, :contra => true)
       transaction = Factory(:transaction, :credit_account => liability, :debit_account => contra_liability, :amount => 1000)
+      contra_liability.reload
       contra_liability.balance.should > 0
       Liability.balance.should == 0
     end

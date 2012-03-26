@@ -40,6 +40,7 @@ module Plutus
       revenue = Factory(:revenue)
       contra_revenue = Factory(:revenue, :contra => true)
       transaction = Factory(:transaction, :credit_account => revenue, :debit_account => contra_revenue, :amount => 1000)
+      contra_revenue.reload
       contra_revenue.balance.should > 0
       Revenue.balance.should == 0
     end

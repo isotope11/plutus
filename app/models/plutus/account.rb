@@ -32,12 +32,17 @@ module Plutus
   # @see http://en.wikipedia.org/wiki/Debits_and_credits Debits, Credits, and Contra Accounts
   #
   # @author Michael Bulat
-  class Account < ActiveRecord::Base
+  class Account
+    include Mongoid::Document
+    include Mongoid::Timestamps
+    field :name, :type => String
+    field :contra, :type => Boolean
 
-    validates_presence_of :type, :name
+    validates_presence_of :name
+    validates :_type, :exclusion => {:in => ["Plutus::Account"]}
 
-    has_many :credit_transactions,  :class_name => "Transaction", :foreign_key => "credit_account_id"
-    has_many :debit_transactions,  :class_name => "Transaction", :foreign_key => "debit_account_id"
+    has_many :credit_transactions, :class_name => "Plutus::Transaction", :foreign_key => "credit_account_id"
+    has_many :debit_transactions, :class_name => "Plutus::Transaction", :foreign_key => "debit_account_id"
 
     # The trial balance of all accounts in the system. This should always equal zero,
     # otherwise there is an error in the system.

@@ -40,6 +40,7 @@ module Plutus
       equity = Factory(:equity)
       contra_equity = Factory(:equity, :contra => true)
       transaction = Factory(:transaction, :credit_account => equity, :debit_account => contra_equity, :amount => 1000)
+      contra_equity.reload
       contra_equity.balance.should > 0
       Equity.balance.should == 0
     end

@@ -1,15 +1,23 @@
-require 'factory_girl'
+require 'bundler/setup'
 
+$: << File.expand_path('../lib', __FILE__)
 ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path(File.dirname(__FILE__) + "/../fixture_rails_root/config/environment")
-require Rails.root.join('db/schema').to_s
-require 'rspec/rails'
+require File.expand_path('../dummy/config/environment', __FILE__)
 
-$: << File.expand_path(File.dirname(__FILE__) + '/../lib/')
 require 'plutus'
+require 'factory_girl'
+require 'rspec/rails'
 
 Dir[File.expand_path(File.join(File.dirname(__FILE__),'factories','**','*.rb'))].each {|f| require f}
 
 RSpec.configure do |config|
-  config.use_transactional_fixtures = true
+  #config.use_transactional_fixtures = true
+
+  config.after :each do
+    Mongoid.master.collections.select do |collection|
+      collection.name !~ /system/
+    end.each(&:drop)
+  end
+
 end
+
