@@ -35,7 +35,7 @@ module Plutus
   case Plutus.orm.to_sym
   when :active_record
     class Account < ActiveRecord::Base
-      include Extensions::Account
+      include ::Plutus::Extensions::Account
       #alias_method :_type, :type
       validates_presence_of :type, :name
     end
@@ -43,7 +43,7 @@ module Plutus
     class Account
       include Mongoid::Document
       include Mongoid::Timestamps
-      include Extensions::Account
+      include ::Plutus::Extensions::Account
       field :name, :type => String
       field :contra, :type => Boolean
 

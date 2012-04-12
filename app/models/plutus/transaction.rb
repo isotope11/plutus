@@ -22,13 +22,13 @@ module Plutus
   case Plutus.orm.to_sym
   when :active_record
     class Transaction < ActiveRecord::Base
-      include Extensions::Transaction
+      include ::Plutus::Extensions::Transaction
     end
   when :mongoid
     class Transaction
       include Mongoid::Document
       include Mongoid::Timestamps
-      include Extensions::Transaction
+      include ::Plutus::Extensions::Transaction
       field :description, :type => String
       field :credit_account_id, :type => Integer
       field :debit_account_id, :type => Integer
