@@ -2,7 +2,7 @@ require 'bundler/setup'
 
 $: << File.expand_path('../lib', __FILE__)
 require 'plutus'
-Plutus.orm = :active_record
+Plutus.orm = :mongoid
 
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path('../dummy/config/environment', __FILE__)
