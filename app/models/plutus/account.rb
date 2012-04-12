@@ -32,33 +32,64 @@ module Plutus
   # @see http://en.wikipedia.org/wiki/Debits_and_credits Debits, Credits, and Contra Accounts
   #
   # @author Michael Bulat
-  class Account
-    include Mongoid::Document
-    include Mongoid::Timestamps
-    field :name, :type => String
-    field :contra, :type => Boolean
+  case Plutus.orm.to_sym
+  when :active_record
+    class Account < ActiveRecord::Base
+      #alias_method :_type, :type
 
-    validates_presence_of :name
-    validates :_type, :exclusion => {:in => ["Plutus::Account"]}
+      validates_presence_of :type, :name
 
-    has_many :credit_transactions, :class_name => "Plutus::Transaction", :foreign_key => "credit_account_id"
-    has_many :debit_transactions, :class_name => "Plutus::Transaction", :foreign_key => "debit_account_id"
+      has_many :credit_transactions,  :class_name => "Plutus::Transaction", :foreign_key => "credit_account_id"
+      has_many :debit_transactions,  :class_name => "Plutus::Transaction", :foreign_key => "debit_account_id"
 
-    # The trial balance of all accounts in the system. This should always equal zero,
-    # otherwise there is an error in the system.
-    #
-    # @example
-    #   >> Account.trial_balance.to_i
-    #   => 0
-    #
-    # @return [BigDecimal] The decimal value balance of all accounts
-    def self.trial_balance
-      unless self.new.class == Account
-        raise(NoMethodError, "undefined method 'trial_balance'")
-      else
-        Asset.balance - (Liability.balance + Equity.balance + Revenue.balance - Expense.balance)
+      # The trial balance of all accounts in the system. This should always equal zero,
+      # otherwise there is an error in the system.
+      #
+      # @example
+      #   >> Account.trial_balance.to_i
+      #   => 0
+      #
+      # @return [BigDecimal] The decimal value balance of all accounts
+      def self.trial_balance
+        unless self.new.class == Account
+          raise(NoMethodError, "undefined method 'trial_balance'")
+        else
+          Asset.balance - (Liability.balance + Equity.balance + Revenue.balance - Expense.balance)
+        end
       end
-    end
 
+    end
+  when :mongoid
+    class Account
+      include Mongoid::Document
+      include Mongoid::Timestamps
+      field :name, :type => String
+      field :contra, :type => Boolean
+
+      validates_presence_of :name
+      validates :_type, :exclusion => {:in => ["Plutus::Account"]}
+
+      has_many :credit_transactions, :class_name => "Plutus::Transaction", :foreign_key => "credit_account_id"
+      has_many :debit_transactions, :class_name => "Plutus::Transaction", :foreign_key => "debit_account_id"
+
+      # The trial balance of all accounts in the system. This should always equal zero,
+      # otherwise there is an error in the system.
+      #
+      # @example
+      #   >> Account.trial_balance.to_i
+      #   => 0
+      #
+      # @return [BigDecimal] The decimal value balance of all accounts
+      def self.trial_balance
+        unless self.new.class == Account
+          raise(NoMethodError, "undefined method 'trial_balance'")
+        else
+          Asset.balance - (Liability.balance + Equity.balance + Revenue.balance - Expense.balance)
+        end
+      end
+
+    end
+  else
+    raise Plutus::OrmNotSupportedError
   end
 end
