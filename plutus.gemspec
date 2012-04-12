@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency("rspec-rails", "~> 2.6")
   s.add_development_dependency("factory_girl")
   s.add_development_dependency("factory_girl_rails", "~> 1.1")
+  s.add_development_dependency("pry")
   s.files = [
     ".gitignore",
     ".travis.yml",

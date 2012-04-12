@@ -1,4 +1,5 @@
 require 'bundler/setup'
+require 'pry'
 
 $: << File.expand_path('../lib', __FILE__)
 require 'plutus'
